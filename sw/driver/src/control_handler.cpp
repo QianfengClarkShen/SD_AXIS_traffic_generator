@@ -62,9 +62,11 @@ int CONTROL_HANDLER::do_test(int iter_num, int simple_mode) {
 				}
 			}
 			if (loop_cnt > 1000 && iter_cnt != 1 && loop_cnt % 100 == 0) {
-				flush_lines(4);
 				if (!simple_mode) {
+					flush_lines(4);
 					mismatch_cnt_tmp = mismatch_cnt + axil_cntlr->read(MISMATCH);
+				} else {
+					flush_lines(1);
 				}
 				tx_throughput = tx_delivered_size_tmp / tx_timeElapse_tmp;
 				if (!simple_mode) {
@@ -104,8 +106,13 @@ int CONTROL_HANDLER::do_test(int iter_num, int simple_mode) {
 			latency = (rx_timestamp_sum-tx_timestamp_sum)*CLOCK_PERIOD/(double)packet_num/(double)iter_cnt;
 			mismatch_cnt += axil_cntlr->read(MISMATCH);
 		}
-		if (iter_cnt != iter_num-1 && iter_cnt != 1)
-			flush_lines(5);
+		if (iter_cnt != iter_num-1 && iter_cnt != 1) {
+			if (!simple_mode) {
+				flush_lines(5);
+			} else {
+				flush_lines(2);
+			}
+		}
 		cout << iter_cnt;
 		if (iter_num != 0) cout << "/" << iter_num;
 		cout << " iterations passed. ";
