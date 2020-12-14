@@ -9,7 +9,7 @@ typedef uint32_t u32;
 
 class CONTROL_HANDLER {
 public:
-	int do_test(int iter_num);
+	int do_test(int iter_num, int simple_mode);
 	CONTROL_HANDLER(AXIL_CONTROLLER *controller, DATA_HANDLER *d_handler) :
 	total_size_low(low32(d_handler->page_num*PAGE_SIZE)),
 	total_size_high(high32(d_handler->page_num*PAGE_SIZE)),

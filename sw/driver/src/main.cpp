@@ -15,6 +15,6 @@ int main(int argc, char** argv) {
 //move file content to FPGA memory
 	if (d_handler.move_data()) return 1;
 //do test
-	if (c_handler.do_test(parser.iter_num)) return 1;
+	if (c_handler.do_test(parser.iter_num,parser.simple_mode)) return 1;
 	return 0;
 }
